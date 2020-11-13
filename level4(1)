@@ -1,0 +1,44 @@
+import java.lang.reflect.Field;
+
+public class p {
+    Package p;
+    private String name;
+    private int age;
+    public p(){
+    }
+}
+
+
+
+
+
+ import p.*;
+public class level4 {
+
+    public static void main(String[] args) throws Exception{
+        Class<?> c=null;
+        Object obj=null;
+        try {
+            c=Class.forName("test.Person");
+        } catch (ClassNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        try {
+            obj=c.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        Field nameField=null;
+        Field ageField=null;
+        nameField=c.getDeclaredField("name");
+        ageField=c.getDeclaredField("age");
+        nameField.setAccessible(true);
+        nameField.set(obj,"软件工程");
+        ageField.setAccessible(true);
+        ageField.set(obj, 18);
+        System.out.println("姓名："+nameField.get(obj));
+        System.out.println("年龄："+ageField.get(obj));
+    }
+}
